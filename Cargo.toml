@@ -18,7 +18,7 @@ travis-ci = { repository = "Metaswitch/cassandra-rs" }
 [dependencies]
 clippy = {version = "0.0", optional = true}
 slog = "2"
-cassandra-cpp-sys = "0.12"
+cassandra-cpp-sys = { version = "0.12.2", features = [] }
 decimal = "2"
 time = "0.2"
 uuid = "0.8"
@@ -28,3 +28,11 @@ parking_lot = "0.11"
 [dev-dependencies]
 tokio = { version = "1.0", features = ["rt", "rt-multi-thread", "macros", "test-util"] }
 futures = "0.3.1"
+
+[features]
+default = []
+vendored = ["cassandra-cpp-sys/vendored-cmake"]
+
+[patch.crates-io]
+cassandra-cpp-sys = { git = "https://github.com/sgg/cassandra-sys-rs", branch = "sgg/vendored-datastax"}
+libuv-sys2 = { git = "https://github.com/sgg/libuv-sys/", branch = "sgg/build_with_cmake" }
